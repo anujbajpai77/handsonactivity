@@ -21,11 +21,12 @@ public class ConvertCurrencyController {
 
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/convert")
-	ResponseEntity<Double> convertedCurrency(@RequestParam(value = "countryCode") String countryCode,
+	ResponseEntity<ConvertCurrencyDTO> convertedCurrency(@RequestParam(value = "countryCode") String countryCode,
 			@RequestParam(value = "amount") Double amount) {
 
 		ConvertCurrencyDTO dto = convertCurrencyService.convertedCurrency(countryCode, amount);
-		return ResponseEntity.ok().body(dto.getConvertedAmount());
+		return ResponseEntity.ok().body(dto);
+		//return ResponseEntity.ok().body(dto.getConvertedAmount());
 	}
 	
 

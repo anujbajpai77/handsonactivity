@@ -1,6 +1,16 @@
 server:
   port: 8089
+
 spring:  application:    name: ConvertCurrency
+   
+  zipkin:
+    base-url: http://192.168.99.100:9411/
+    
+  sleuth:
+    sampler:
+      probability: 1.0
+    trace-id128: true    
+
 eureka:
   instance:
     instance-id: ${spring.application.name}.${random.int}
@@ -8,9 +18,11 @@ eureka:
     lease-renewal-interval-in-seconds: 1
   client:
     service-url:
-      defaultZone: http://localhost:8101/eureka        
+      defaultZone: http://localhost:8101/eureka
+           
 management:
   endpoints:
     web:
       exposure:
         include: "*"   
+  
