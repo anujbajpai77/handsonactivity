@@ -1,0 +1,13 @@
+server:
+  port: 8091
+
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:dbservice
+    username: secure
+    password: secure
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect 
