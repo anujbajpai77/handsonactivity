@@ -1,6 +1,15 @@
 server:
   port: 8091
 
+eureka:
+  instance:
+    instance-id: ${spring.application.name}.${random.int}
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+  client:
+    service-url:
+      defaultZone: http://localhost:8101/eureka
+      
 spring:
   h2:
     console:
@@ -11,3 +20,4 @@ spring:
     password: secure
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect 
+  application:    name: account-login-service  

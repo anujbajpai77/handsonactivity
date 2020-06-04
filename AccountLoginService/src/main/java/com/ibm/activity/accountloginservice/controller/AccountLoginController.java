@@ -2,25 +2,23 @@ package com.ibm.activity.accountloginservice.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ibm.activity.accountloginservice.dto.AuthenticationRequest;
-import com.ibm.activity.accountloginservice.dto.AuthenticationResponse;
+import com.ibm.activity.accountloginservice.dto.MyUserDetailsDTO;
 import com.ibm.activity.accountloginservice.service.MyUserDetailsService;
-import com.ibm.activity.accountloginservice.util.JwtUtil;
 
 @RestController
 @RequestMapping("/loginservice")
 public class AccountLoginController {
+
+	@Autowired
+	MyUserDetailsService myServiceUserData;
 
 	@Value("Secured Login")
 	private String message;
@@ -29,47 +27,25 @@ public class AccountLoginController {
 	public String open() {
 		return "You are general user";
 	}
-	
+
 	@GetMapping("/msg")
 	public String getMsg() {
 		return this.message;
 	}
 
-	@GetMapping("/superuser")
-	public String superUser() {
-		return "Hello Super User";
+	@PostMapping("/createuser")
+	public ResponseEntity<MyUserDetailsDTO> insertNewUser(@RequestBody MyUserDetailsDTO details) {
+		if (myServiceUserData.loadUserByUsername(details.getUsername()) != null) {
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		} else {
+			MyUserDetailsDTO registeredData = myServiceUserData.createNewUser(details);
+			return new ResponseEntity<>(registeredData, HttpStatus.CREATED);
+		}
 	}
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private JwtUtil jwtTokenUtil;
-
-	@Autowired
-	private MyUserDetailsService userDetailsService;
-	
-	
-	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-
-		try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-			);
-		}
-		catch (BadCredentialsException e) {
-			throw new Exception("Incorrect username or password", e);
-		}
-
-
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
-
-		final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-		return ResponseEntity.ok(new AuthenticationResponse(jwt));
+	@GetMapping("/getAlluser")
+	public <T> ResponseEntity<T> userDetails() {
+		return new ResponseEntity<>(myServiceUserData.findAll(), HttpStatus.OK) ;
 	}
 
 }
-

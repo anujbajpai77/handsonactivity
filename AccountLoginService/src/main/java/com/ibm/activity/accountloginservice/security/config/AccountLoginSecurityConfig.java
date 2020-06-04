@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -28,29 +28,27 @@ public class AccountLoginSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// auth.inMemoryAuthentication().withUser("anuj").password("anuj").roles("Admin").and().withUser("blah")
 		// .password("blah").roles("User");
-
 		auth.userDetailsService(userDetailsService);
 	}
 
-	
 	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		
-	httpSecurity.authorizeRequests()
+
+		httpSecurity.authorizeRequests()
 		.antMatchers("/console/**").hasRole("Admin").and().formLogin().and().csrf()
 		.ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin().disable()
-		.authorizeRequests().antMatchers("/loginservice/authenticate").permitAll().anyRequest().authenticated()
+		.authorizeRequests().antMatchers("/authenticate","/loginservice/createuser", "/loginservice/").permitAll().anyRequest().authenticated()
 		.and().exceptionHandling().and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	
-	    httpSecurity.csrf().disable();
+
+		httpSecurity.csrf().disable();
 		httpSecurity.headers().frameOptions().disable();
-		
+
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
