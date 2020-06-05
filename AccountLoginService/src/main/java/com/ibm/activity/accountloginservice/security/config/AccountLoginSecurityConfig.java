@@ -42,7 +42,7 @@ public class AccountLoginSecurityConfig extends WebSecurityConfigurerAdapter {
 		httpSecurity.authorizeRequests()
 		.antMatchers("/console/**").hasRole("Admin").and().formLogin().and().csrf()
 		.ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin().disable()
-		.authorizeRequests().antMatchers("/authenticate","/loginservice/createuser", "/loginservice/").permitAll().anyRequest().authenticated()
+		.authorizeRequests().antMatchers("/authenticate","/loginservice/createuser").permitAll().anyRequest().authenticated()
 		.and().exceptionHandling().and().sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 

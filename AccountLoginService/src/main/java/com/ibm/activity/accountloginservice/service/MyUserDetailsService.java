@@ -23,16 +23,15 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-
 	/**
-	  Used to return Details of User to convert user details in signed JWT token
-	  Used to Validate existing user for create user process.
-	*/
-	
+	 * Used to return Details of User to convert user details in signed JWT token
+	 * Used to Validate existing user for create user process.
+	 */
+
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		// return new MyUserDetails(username);
@@ -46,8 +45,8 @@ public class MyUserDetailsService implements UserDetailsService {
 	}
 
 	/**
-	  Create a user with bcrypt password and default role as 'User'
-	*/
+	 * Create a user with bcrypt password and default role as 'User'
+	 */
 	public MyUserDetailsDTO createNewUser(MyUserDetailsDTO details) {
 		MyUserDetailsMapper mapper = new MyUserDetailsMapper();
 		details.setPassword(passwordEncoder.encode(details.getPassword()));
@@ -55,10 +54,21 @@ public class MyUserDetailsService implements UserDetailsService {
 		User convertMapperToEntity = mapper.convertMyUserDetailsDTOToUser(details);
 		return mapper.convertMyUserToMyUserDetailsDTO(userRepository.save(convertMapperToEntity));
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	public List findAll(){
-	  return userRepository.findAll();
+	public List findAll() {
+		return userRepository.findAll();
 	}
-	
+
+	public MyUserDetailsDTO getUserById(Long id) {
+		Optional<User> User = userRepository.findById(id);
+
+		MyUserDetailsDTO userDetailsDTO = new MyUserDetailsDTO();
+		if (User.isPresent()) {
+			MyUserDetailsMapper mapper = new MyUserDetailsMapper();
+			userDetailsDTO = mapper.convertMyUserToMyUserDetailsDTO(User.get());
+		}
+		return userDetailsDTO;
+	}
+
 }
