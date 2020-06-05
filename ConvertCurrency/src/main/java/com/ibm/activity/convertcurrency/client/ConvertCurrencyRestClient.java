@@ -8,10 +8,9 @@ import com.ibm.activity.convertcurrency.dto.ConvertCurrencyDTO;
 
 
 @FeignClient(name="CurrencyConversionFactor")
-//@RibbonClient(name="CurrencyConversionFactor")
 public interface ConvertCurrencyRestClient {
 
-	@GetMapping("/conversion/getfactor")
+	@GetMapping("/currencyconversion/country/{countryCode}")
 	public ConvertCurrencyDTO getConversionFactor(
 			@RequestParam(value = "countryCode") String countryCode);
 }

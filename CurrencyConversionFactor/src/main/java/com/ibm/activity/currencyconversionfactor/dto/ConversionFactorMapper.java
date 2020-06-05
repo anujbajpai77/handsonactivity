@@ -1,13 +1,14 @@
 package com.ibm.activity.currencyconversionfactor.dto;
 
+import org.springframework.stereotype.Component;
+
 import com.ibm.activity.currencyconversionfactor.domain.ConversionFactorEntity;
 
+@Component
 public class ConversionFactorMapper {
 
 	public ConversionFactorDTO convertConversionFactorToConversionDTO(ConversionFactorEntity coFactorEntity) {
-
 		ConversionFactorDTO cFactorDTO = new ConversionFactorDTO();
-
 		cFactorDTO.setId(coFactorEntity.getId());
 		cFactorDTO.setCountryCode(coFactorEntity.getCountryCode());
 		cFactorDTO.setConversionFactor(coFactorEntity.getConversionFactor());
