@@ -10,17 +10,6 @@ public class ConvertCurrencyDTO {
 
 	private Double conversionFactor;
 
-	public ConvertCurrencyDTO() {
-	}
-
-	public ConvertCurrencyDTO(Long id, Double convertedAmount, String countryCode, Double conversionFactor) {
-		super();
-		this.id = id;
-		this.convertedAmount = convertedAmount;
-		this.countryCode = countryCode;
-		this.conversionFactor = conversionFactor;
-	}
-
 	public Long getId() {
 		return id;
 	}

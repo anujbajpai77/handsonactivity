@@ -9,6 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "CONVERSION_DETAILS")
+
 public class ConversionFactorEntity {
 
 	@Id
@@ -16,22 +17,12 @@ public class ConversionFactorEntity {
 	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "country_code")
+	
+	@Column(name = "country_code" ,unique = true)
 	private String countryCode;
 
 	@Column(name = "conversion_factor")
 	private Double conversionFactor;
-
-	public ConversionFactorEntity() {
-
-	}
-
-	public ConversionFactorEntity(Long id, String countryCode, Double conversionFactor) {
-		super();
-		this.id = id;
-		this.countryCode = countryCode;
-		this.conversionFactor = conversionFactor;
-	}
 
 	public Long getId() {
 		return id;
