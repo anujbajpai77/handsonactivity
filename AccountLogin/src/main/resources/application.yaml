@@ -1,0 +1,14 @@
+server:
+  port: 8092  error:    whitelabel:      enabled: false
+  
+spring:  datasource:    url: jdbc:h2:mem:cart_db
+    username: cartdb
+    password: cartdb
+  jpa:    database-platform: org.hibernate.dialect.H2Dialect
+  thymeleaf:    cache: false
+    prefix: classpath:/templates
+
+    
+    
+    
+    
