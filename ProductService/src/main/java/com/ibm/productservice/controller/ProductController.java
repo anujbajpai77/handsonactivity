@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.productservice.dto.ProductDTO;
-import com.ibm.productservice.service.ProductService;
+import com.ibm.productservice.service.ProductServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiOperation;
 public class ProductController {
 
 	@Autowired
-	ProductService productService;
+	ProductServiceImpl productService;
 
 
 	@ApiOperation("This will provide products for given product ID.")
@@ -42,7 +42,7 @@ public class ProductController {
 	}
 
 
-	@GetMapping("product")
+	@GetMapping
 	public ResponseEntity<ProductDTO> searchByProductName(@RequestParam(value = "name") String name) {
 
 		return ResponseEntity.ok().body(productService.getProductByName(name));
