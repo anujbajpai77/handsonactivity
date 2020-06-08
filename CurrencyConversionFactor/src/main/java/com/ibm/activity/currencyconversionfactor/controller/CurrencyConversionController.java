@@ -17,7 +17,6 @@ import com.ibm.activity.currencyconversionfactor.dto.ConversionFactorDTO;
 import com.ibm.activity.currencyconversionfactor.exception.ResourceCreationException;
 import com.ibm.activity.currencyconversionfactor.exception.ResourceNotFoundException;
 import com.ibm.activity.currencyconversionfactor.exception.ResourceUpdateException;
-import com.ibm.activity.currencyconversionfactor.service.ConversionFactorService;
 import com.ibm.activity.currencyconversionfactor.service.IConversionFactorService;
 
 import io.swagger.annotations.ApiOperation;

@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.ibm.activity.currencyconversionfactor.domain.ConversionFactorEntity;
-import com.ibm.activity.currencyconversionfactor.exception.ResourceCreationException;
 import com.ibm.activity.currencyconversionfactor.exception.ResourceNotFoundException;
 
 @Repository
