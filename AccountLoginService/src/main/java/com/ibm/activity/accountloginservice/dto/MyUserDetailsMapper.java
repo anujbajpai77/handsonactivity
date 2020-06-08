@@ -13,9 +13,9 @@ public class MyUserDetailsMapper {
 		return user;
 	}
 
-	public  MyUserDetailsDTO  convertMyUserToMyUserDetailsDTO(User userEntity) {
+	public MyUserDetailsDTO convertMyUserToMyUserDetailsDTO(User userEntity) {
 		MyUserDetailsDTO userDetailsDto = new MyUserDetailsDTO();
-		
+
 		userDetailsDto.setUsername(userEntity.getUsername());
 		userDetailsDto.setPassword(userEntity.getPassword());
 		userDetailsDto.setEnabled(userEntity.getEnabled());

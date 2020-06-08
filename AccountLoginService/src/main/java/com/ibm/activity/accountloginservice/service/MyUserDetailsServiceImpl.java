@@ -17,7 +17,7 @@ import com.ibm.activity.accountloginservice.dto.MyUserDetailsMapper;
 import com.ibm.activity.accountloginservice.repository.UserRepository;
 
 @Service
-public class MyUserDetailsService implements UserDetailsService {
+public class MyUserDetailsServiceImpl implements UserDetailsService {
 
 	private static final String ROLE_USER = "User";
 
@@ -34,7 +34,6 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		// return new MyUserDetails(username);
 		Optional<User> user = userRepository.findByUsername(userName);
 		if (user.isPresent()) {
 			return user.map(MyUserDetails::new).get();

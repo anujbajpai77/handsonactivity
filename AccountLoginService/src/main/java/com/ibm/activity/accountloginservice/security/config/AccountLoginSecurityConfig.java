@@ -39,12 +39,11 @@ public class AccountLoginSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 
-		httpSecurity.authorizeRequests()
-		.antMatchers("/console/**").hasRole("Admin").and().formLogin().and().csrf()
-		.ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin().disable()
-		.authorizeRequests().antMatchers("/authenticate","/loginservice/createuser").permitAll().anyRequest().authenticated()
-		.and().exceptionHandling().and().sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		httpSecurity.authorizeRequests().antMatchers("/console/**").hasRole("Admin").and().formLogin().and().csrf()
+				.ignoringAntMatchers("/h2-console/**").and().headers().frameOptions().sameOrigin().disable()
+				.authorizeRequests().antMatchers("/authenticate", "/loginservice/createuser").permitAll().anyRequest()
+				.authenticated().and().exceptionHandling().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		httpSecurity.csrf().disable();
 		httpSecurity.headers().frameOptions().disable();

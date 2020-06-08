@@ -13,7 +13,7 @@ import com.ibm.activity.accountloginservice.domain.User;
 
 public class MyUserDetails implements UserDetails {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 7749773360482979061L;
 	private String username;
 	private String password;
 	private Boolean enabled;

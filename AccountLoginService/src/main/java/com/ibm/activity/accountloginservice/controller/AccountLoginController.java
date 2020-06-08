@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.activity.accountloginservice.dto.MyUserDetailsDTO;
-import com.ibm.activity.accountloginservice.service.MyUserDetailsService;
+import com.ibm.activity.accountloginservice.service.MyUserDetailsServiceImpl;
 
 @RestController
 @RequestMapping("/loginservice")
 public class AccountLoginController {
 
 	@Autowired
-	MyUserDetailsService myServiceUserData;
+	MyUserDetailsServiceImpl myServiceUserData;
 
 	@Value("Secured Login")
 	private String message;

@@ -2,12 +2,11 @@ package com.ibm.activity.accountloginservice.dto;
 
 public class MyUserDetailsDTO {
 
-	private static final long serialVersionUID = 1L;
+	
 	private String username;
 	private String password;
 	private Boolean enabled;
 	private String roles;
-
 
 	public String getUsername() {
 		return username;
@@ -40,10 +39,5 @@ public class MyUserDetailsDTO {
 	public void setRoles(String roles) {
 		this.roles = roles;
 	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 
 }

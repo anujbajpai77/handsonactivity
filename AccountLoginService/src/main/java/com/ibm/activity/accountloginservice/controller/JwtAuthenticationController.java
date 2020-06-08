@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ibm.activity.accountloginservice.dto.AuthenticationRequest;
 import com.ibm.activity.accountloginservice.dto.AuthenticationResponse;
-import com.ibm.activity.accountloginservice.service.MyUserDetailsService;
+import com.ibm.activity.accountloginservice.service.MyUserDetailsServiceImpl;
 import com.ibm.activity.accountloginservice.util.JwtUtil;
 
 @RestController
@@ -25,27 +25,24 @@ public class JwtAuthenticationController {
 	private JwtUtil jwtTokenUtil;
 
 	@Autowired
-	private MyUserDetailsService userDetailsService; 
+	private MyUserDetailsServiceImpl userDetailsService;
 
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest)
+			throws Exception {
 
 		try {
-			authenticationManager.authenticate(
-					new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-			);
-		}
-		catch (BadCredentialsException e) {
+			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+		} catch (BadCredentialsException e) {
 			throw new Exception("Incorrect username or password", e);
 		}
 
-
-		final UserDetails userDetails = userDetailsService
-				.loadUserByUsername(authenticationRequest.getUsername());
+		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String jwt = jwtTokenUtil.generateToken(userDetails);
 
 		return ResponseEntity.ok(new AuthenticationResponse(jwt));
 	}
-	
+
 }
