@@ -8,18 +8,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Orders")
+@Table(name = "Orders")
 public class Orders {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="order_id")
+	@Column(name = "order_id")
 	private Long orderId;
-	
-	@Column(name="user_id")
+
+	@Column(name = "user_id")
 	private Long userId;
-	
-	@Column(name="product_id")
+
+	@Column(name = "product_id")
 	private Long productId;
 
 	public Long getOrderId() {
@@ -45,6 +45,5 @@ public class Orders {
 	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
-
 
 }

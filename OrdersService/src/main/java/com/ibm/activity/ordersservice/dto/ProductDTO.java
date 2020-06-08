@@ -11,7 +11,7 @@ public class ProductDTO {
 	private Double price;
 
 	private Double discount;
-	
+
 	private Long tax;
 
 	public Long getId() {
@@ -62,5 +62,4 @@ public class ProductDTO {
 		this.tax = tax;
 	}
 
-	
 }

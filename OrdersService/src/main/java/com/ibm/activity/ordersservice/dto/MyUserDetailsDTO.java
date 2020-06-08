@@ -8,7 +8,6 @@ public class MyUserDetailsDTO {
 	private Boolean enabled;
 	private String roles;
 
-
 	public String getUsername() {
 		return username;
 	}
@@ -44,6 +43,5 @@ public class MyUserDetailsDTO {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
 
 }

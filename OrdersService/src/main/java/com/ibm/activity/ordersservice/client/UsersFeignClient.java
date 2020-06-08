@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 
 import com.ibm.activity.ordersservice.dto.MyUserDetailsDTO;
-import com.ibm.activity.ordersservice.dto.ProductDTO;
 
 @FeignClient("account-login-service")
 public interface UsersFeignClient {
 
-	@GetMapping("/loginservice/{id}") 
+	@GetMapping("/loginservice/{id}")
 	ResponseEntity<MyUserDetailsDTO> getUserDetails(@PathVariable(value = "id") Long id,
 			@RequestHeader("Authorization") String authorization);
 }
