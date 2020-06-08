@@ -17,15 +17,15 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 @Service
-public class ProductService {
-	private static Logger logger = LoggerFactory.getLogger(ProductService.class);
+public class ProductServiceImpl implements IProductService {
+	private static Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 	@Autowired
 	ProductRepository productRepository;
 
 	final ProductRestClient restClient;
 
 	@Autowired
-	public ProductService(ProductRestClient restClient) {
+	public ProductServiceImpl(ProductRestClient restClient) {
 		this.restClient = restClient;
 	}
 
@@ -46,20 +46,7 @@ public class ProductService {
 		return productDto;
 	}
 
-	public ProductDTO taxServiceFallback(Long id) {
-
-		Optional<Product> product = productRepository.findById(id);
-		ProductDTO productDTO = null;
-		if (product.isPresent()) {
-
-			ProductMapper mapper = new ProductMapper();
-			productDTO = mapper.convertProductToProductDTO(product.get());
-			productDTO.setTax(3L);
-		}
-
-		return productDTO;
-	}
-
+	
 	public ProductDTO insertProduct(ProductDTO dto) {
 
 		ProductMapper mapper = new ProductMapper();
@@ -76,6 +63,21 @@ public class ProductService {
 		return mapper.convertProductToProductDTO(product);
 		
 	}
+	
+	public ProductDTO taxServiceFallback(Long id) {
+
+		Optional<Product> product = productRepository.findById(id);
+		ProductDTO productDTO = null;
+		if (product.isPresent()) {
+
+			ProductMapper mapper = new ProductMapper();
+			productDTO = mapper.convertProductToProductDTO(product.get());
+			productDTO.setTax(3L);
+		}
+
+		return productDTO;
+	}
+
 	
 	@SuppressWarnings("rawtypes")
 	public List findAll(){
